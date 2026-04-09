@@ -16,6 +16,10 @@ public class ThreadRelay {
     public static void main(String[] args) {
        
         
-    }
-    
+        for (int i=0; i<4; i++){
+            Runner r = new Runner();
+            Thread t = new Thread(r);
+        }
+        
+    }    
 }

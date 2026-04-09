@@ -26,39 +26,55 @@ public class JThreadRelay extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        JpnlRunner1 = new javax.swing.JPanel();
+        lblRunnerIcon1 = new javax.swing.JLabel();
         prgRunner1 = new javax.swing.JProgressBar();
-        prgRunner2 = new javax.swing.JProgressBar();
-        prgRunner3 = new javax.swing.JProgressBar();
-        jPanel2 = new javax.swing.JPanel();
+        JpnlButton = new javax.swing.JPanel();
         cmbVelocita = new javax.swing.JComboBox<>();
         btnAvvia = new javax.swing.JButton();
         btnSospendere = new javax.swing.JButton();
         btnRiprendi = new javax.swing.JButton();
         btnFerma = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        JpnlRunnerTimer1 = new javax.swing.JPanel();
         lblRunner1 = new javax.swing.JLabel();
         lblRunnerTimer1 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        JpnlRunnerTimer2 = new javax.swing.JPanel();
         lblRunner2 = new javax.swing.JLabel();
         lblRunnerTimer2 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        JpnlRunnerTimer3 = new javax.swing.JPanel();
         lblRunner3 = new javax.swing.JLabel();
         lblRunnerTimer3 = new javax.swing.JLabel();
+        JpnlRunner2 = new javax.swing.JPanel();
+        lblRunnerIcon2 = new javax.swing.JLabel();
+        prgRunner2 = new javax.swing.JProgressBar();
+        JpnlRunner3 = new javax.swing.JPanel();
+        lblRunnerIcon3 = new javax.swing.JLabel();
+        prgRunner3 = new javax.swing.JProgressBar();
+        JpnlRunner4 = new javax.swing.JPanel();
+        lblRunnerIcon4 = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        JpnlRunnerTimer4 = new javax.swing.JPanel();
+        lblRunner4 = new javax.swing.JLabel();
+        lblRunnerTimer4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(700, 520));
+        setResizable(false);
         getContentPane().setLayout(null);
 
-        jPanel1.setLayout(null);
-        jPanel1.add(prgRunner1);
-        prgRunner1.setBounds(10, 10, 450, 80);
-        jPanel1.add(prgRunner2);
-        prgRunner2.setBounds(10, 110, 450, 80);
-        jPanel1.add(prgRunner3);
-        prgRunner3.setBounds(10, 210, 450, 80);
+        JpnlRunner1.setPreferredSize(new java.awt.Dimension(460, 90));
+        JpnlRunner1.setLayout(null);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 470, 310);
+        lblRunnerIcon1.setText(".");
+        JpnlRunner1.add(lblRunnerIcon1);
+        lblRunnerIcon1.setBounds(10, 40, 60, 16);
+        JpnlRunner1.add(prgRunner1);
+        prgRunner1.setBounds(10, 10, 450, 80);
+
+        getContentPane().add(JpnlRunner1);
+        JpnlRunner1.setBounds(0, 0, 480, 100);
+
+        JpnlButton.setPreferredSize(new java.awt.Dimension(650, 80));
 
         cmbVelocita.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         cmbVelocita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Slow", "Regular", "Fast" }));
@@ -70,24 +86,44 @@ public class JThreadRelay extends javax.swing.JFrame {
 
         btnAvvia.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnAvvia.setText("Avvia");
+        btnAvvia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAvviaActionPerformed(evt);
+            }
+        });
 
         btnSospendere.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnSospendere.setText("Sospendere");
+        btnSospendere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSospendereActionPerformed(evt);
+            }
+        });
 
         btnRiprendi.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnRiprendi.setText("Riprende");
+        btnRiprendi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRiprendiActionPerformed(evt);
+            }
+        });
 
         btnFerma.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnFerma.setText("Ferma");
+        btnFerma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFermaActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout JpnlButtonLayout = new javax.swing.GroupLayout(JpnlButton);
+        JpnlButton.setLayout(JpnlButtonLayout);
+        JpnlButtonLayout.setHorizontalGroup(
+            JpnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JpnlButtonLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(cmbVelocita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(btnAvvia)
                 .addGap(53, 53, 53)
                 .addComponent(btnSospendere)
@@ -97,11 +133,11 @@ public class JThreadRelay extends javax.swing.JFrame {
                 .addComponent(btnFerma)
                 .addGap(56, 56, 56))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        JpnlButtonLayout.setVerticalGroup(
+            JpnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JpnlButtonLayout.createSequentialGroup()
                 .addContainerGap(31, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JpnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbVelocita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRiprendi)
                     .addComponent(btnFerma)
@@ -110,12 +146,13 @@ public class JThreadRelay extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 310, 650, 80);
+        getContentPane().add(JpnlButton);
+        JpnlButton.setBounds(0, 420, 650, 80);
 
-        jPanel3.setBackground(new java.awt.Color(209, 226, 243));
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 226, 243)));
-        jPanel3.setForeground(new java.awt.Color(255, 255, 255));
+        JpnlRunnerTimer1.setBackground(new java.awt.Color(209, 226, 243));
+        JpnlRunnerTimer1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 226, 243)));
+        JpnlRunnerTimer1.setForeground(new java.awt.Color(255, 255, 255));
+        JpnlRunnerTimer1.setPreferredSize(new java.awt.Dimension(150, 90));
 
         lblRunner1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         lblRunner1.setText("Runner 1");
@@ -123,33 +160,33 @@ public class JThreadRelay extends javax.swing.JFrame {
         lblRunnerTimer1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         lblRunnerTimer1.setText(".");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout JpnlRunnerTimer1Layout = new javax.swing.GroupLayout(JpnlRunnerTimer1);
+        JpnlRunnerTimer1.setLayout(JpnlRunnerTimer1Layout);
+        JpnlRunnerTimer1Layout.setHorizontalGroup(
+            JpnlRunnerTimer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JpnlRunnerTimer1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblRunner1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(lblRunnerTimer1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        JpnlRunnerTimer1Layout.setVerticalGroup(
+            JpnlRunnerTimer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JpnlRunnerTimer1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JpnlRunnerTimer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRunner1)
                     .addComponent(lblRunnerTimer1))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(480, 10, 150, 80);
+        getContentPane().add(JpnlRunnerTimer1);
+        JpnlRunnerTimer1.setBounds(480, 10, 150, 80);
 
-        jPanel4.setBackground(new java.awt.Color(209, 226, 243));
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 226, 243)));
-        jPanel4.setPreferredSize(new java.awt.Dimension(150, 80));
+        JpnlRunnerTimer2.setBackground(new java.awt.Color(209, 226, 243));
+        JpnlRunnerTimer2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 226, 243)));
+        JpnlRunnerTimer2.setPreferredSize(new java.awt.Dimension(150, 90));
 
         lblRunner2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         lblRunner2.setText("Runner 2");
@@ -157,33 +194,33 @@ public class JThreadRelay extends javax.swing.JFrame {
         lblRunnerTimer2.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         lblRunnerTimer2.setText(".");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout JpnlRunnerTimer2Layout = new javax.swing.GroupLayout(JpnlRunnerTimer2);
+        JpnlRunnerTimer2.setLayout(JpnlRunnerTimer2Layout);
+        JpnlRunnerTimer2Layout.setHorizontalGroup(
+            JpnlRunnerTimer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JpnlRunnerTimer2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblRunner2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(lblRunnerTimer2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        JpnlRunnerTimer2Layout.setVerticalGroup(
+            JpnlRunnerTimer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JpnlRunnerTimer2Layout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addGroup(JpnlRunnerTimer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRunner2)
                     .addComponent(lblRunnerTimer2))
                 .addGap(28, 28, 28))
         );
 
-        getContentPane().add(jPanel4);
-        jPanel4.setBounds(480, 110, 150, 80);
+        getContentPane().add(JpnlRunnerTimer2);
+        JpnlRunnerTimer2.setBounds(480, 100, 150, 90);
 
-        jPanel5.setBackground(new java.awt.Color(209, 226, 243));
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 226, 243)));
-        jPanel5.setPreferredSize(new java.awt.Dimension(150, 80));
+        JpnlRunnerTimer3.setBackground(new java.awt.Color(209, 226, 243));
+        JpnlRunnerTimer3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 226, 243)));
+        JpnlRunnerTimer3.setPreferredSize(new java.awt.Dimension(150, 90));
 
         lblRunner3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         lblRunner3.setText("Runner 3");
@@ -191,29 +228,98 @@ public class JThreadRelay extends javax.swing.JFrame {
         lblRunnerTimer3.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         lblRunnerTimer3.setText(".");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout JpnlRunnerTimer3Layout = new javax.swing.GroupLayout(JpnlRunnerTimer3);
+        JpnlRunnerTimer3.setLayout(JpnlRunnerTimer3Layout);
+        JpnlRunnerTimer3Layout.setHorizontalGroup(
+            JpnlRunnerTimer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JpnlRunnerTimer3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblRunner3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(lblRunnerTimer3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        JpnlRunnerTimer3Layout.setVerticalGroup(
+            JpnlRunnerTimer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JpnlRunnerTimer3Layout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addGroup(JpnlRunnerTimer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRunner3)
                     .addComponent(lblRunnerTimer3))
                 .addGap(28, 28, 28))
         );
 
-        getContentPane().add(jPanel5);
-        jPanel5.setBounds(480, 210, 150, 80);
+        getContentPane().add(JpnlRunnerTimer3);
+        JpnlRunnerTimer3.setBounds(480, 200, 150, 90);
+
+        JpnlRunner2.setLayout(null);
+
+        lblRunnerIcon2.setText(".");
+        JpnlRunner2.add(lblRunnerIcon2);
+        lblRunnerIcon2.setBounds(10, 30, 2, 16);
+        JpnlRunner2.add(prgRunner2);
+        prgRunner2.setBounds(10, 0, 450, 90);
+
+        getContentPane().add(JpnlRunner2);
+        JpnlRunner2.setBounds(0, 100, 480, 90);
+
+        JpnlRunner3.setPreferredSize(new java.awt.Dimension(460, 90));
+        JpnlRunner3.setLayout(null);
+
+        lblRunnerIcon3.setText(".");
+        JpnlRunner3.add(lblRunnerIcon3);
+        lblRunnerIcon3.setBounds(10, 40, 2, 16);
+        JpnlRunner3.add(prgRunner3);
+        prgRunner3.setBounds(10, 0, 450, 90);
+
+        getContentPane().add(JpnlRunner3);
+        JpnlRunner3.setBounds(0, 200, 480, 90);
+
+        JpnlRunner4.setPreferredSize(new java.awt.Dimension(460, 90));
+        JpnlRunner4.setLayout(null);
+
+        lblRunnerIcon4.setText(".");
+        JpnlRunner4.add(lblRunnerIcon4);
+        lblRunnerIcon4.setBounds(10, 40, 2, 16);
+        JpnlRunner4.add(jProgressBar1);
+        jProgressBar1.setBounds(10, 0, 450, 90);
+
+        getContentPane().add(JpnlRunner4);
+        JpnlRunner4.setBounds(2, 302, 470, 90);
+
+        JpnlRunnerTimer4.setBackground(new java.awt.Color(209, 226, 243));
+        JpnlRunnerTimer4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 226, 243)));
+        JpnlRunnerTimer4.setPreferredSize(new java.awt.Dimension(150, 90));
+
+        lblRunner4.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        lblRunner4.setText("Runner 4");
+
+        lblRunnerTimer4.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        lblRunnerTimer4.setText(".");
+
+        javax.swing.GroupLayout JpnlRunnerTimer4Layout = new javax.swing.GroupLayout(JpnlRunnerTimer4);
+        JpnlRunnerTimer4.setLayout(JpnlRunnerTimer4Layout);
+        JpnlRunnerTimer4Layout.setHorizontalGroup(
+            JpnlRunnerTimer4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JpnlRunnerTimer4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblRunner4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(lblRunnerTimer4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        JpnlRunnerTimer4Layout.setVerticalGroup(
+            JpnlRunnerTimer4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JpnlRunnerTimer4Layout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addGroup(JpnlRunnerTimer4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRunner4)
+                    .addComponent(lblRunnerTimer4))
+                .addGap(28, 28, 28))
+        );
+
+        getContentPane().add(JpnlRunnerTimer4);
+        JpnlRunnerTimer4.setBounds(480, 300, 150, 90);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -221,6 +327,22 @@ public class JThreadRelay extends javax.swing.JFrame {
     private void cmbVelocitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbVelocitaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbVelocitaActionPerformed
+
+    private void btnAvviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvviaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAvviaActionPerformed
+
+    private void btnSospendereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSospendereActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSospendereActionPerformed
+
+    private void btnRiprendiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiprendiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRiprendiActionPerformed
+
+    private void btnFermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFermaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFermaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,22 +380,33 @@ public class JThreadRelay extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JpnlButton;
+    private javax.swing.JPanel JpnlRunner1;
+    private javax.swing.JPanel JpnlRunner2;
+    private javax.swing.JPanel JpnlRunner3;
+    private javax.swing.JPanel JpnlRunner4;
+    private javax.swing.JPanel JpnlRunnerTimer1;
+    private javax.swing.JPanel JpnlRunnerTimer2;
+    private javax.swing.JPanel JpnlRunnerTimer3;
+    private javax.swing.JPanel JpnlRunnerTimer4;
     private javax.swing.JButton btnAvvia;
     private javax.swing.JButton btnFerma;
     private javax.swing.JButton btnRiprendi;
     private javax.swing.JButton btnSospendere;
     private javax.swing.JComboBox<String> cmbVelocita;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JLabel lblRunner1;
     private javax.swing.JLabel lblRunner2;
     private javax.swing.JLabel lblRunner3;
+    private javax.swing.JLabel lblRunner4;
+    private javax.swing.JLabel lblRunnerIcon1;
+    private javax.swing.JLabel lblRunnerIcon2;
+    private javax.swing.JLabel lblRunnerIcon3;
+    private javax.swing.JLabel lblRunnerIcon4;
     private javax.swing.JLabel lblRunnerTimer1;
     private javax.swing.JLabel lblRunnerTimer2;
     private javax.swing.JLabel lblRunnerTimer3;
+    private javax.swing.JLabel lblRunnerTimer4;
     private javax.swing.JProgressBar prgRunner1;
     private javax.swing.JProgressBar prgRunner2;
     private javax.swing.JProgressBar prgRunner3;
