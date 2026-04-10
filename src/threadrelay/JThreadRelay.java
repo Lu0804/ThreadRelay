@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package threadrelay;
-
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  *
  * @author lucia
@@ -17,6 +19,20 @@ public class JThreadRelay extends javax.swing.JFrame {
         initComponents();
     }
 
+    //metodi
+    private void AggiornaPrgb(Runner r, javax.swing.JProgressBar bar, javax.swing.JLabel lbl){
+       int n= r.getI();
+       bar.setValue(n);
+       
+       if (n==0){
+           lbl.setText("0");
+       } else if (n>= 100) {
+           lbl.setText("Fine");
+       } else lbl.setText(String.valueOf(n));
+        
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,7 +68,7 @@ public class JThreadRelay extends javax.swing.JFrame {
         prgRunner3 = new javax.swing.JProgressBar();
         JpnlRunner4 = new javax.swing.JPanel();
         lblRunnerIcon4 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        prgRunner4 = new javax.swing.JProgressBar();
         JpnlRunnerTimer4 = new javax.swing.JPanel();
         lblRunner4 = new javax.swing.JLabel();
         lblRunnerTimer4 = new javax.swing.JLabel();
@@ -147,7 +163,7 @@ public class JThreadRelay extends javax.swing.JFrame {
         );
 
         getContentPane().add(JpnlButton);
-        JpnlButton.setBounds(0, 420, 650, 80);
+        JpnlButton.setBounds(0, 400, 650, 80);
 
         JpnlRunnerTimer1.setBackground(new java.awt.Color(209, 226, 243));
         JpnlRunnerTimer1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 226, 243)));
@@ -158,7 +174,7 @@ public class JThreadRelay extends javax.swing.JFrame {
         lblRunner1.setText("Runner 1");
 
         lblRunnerTimer1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        lblRunnerTimer1.setText(".");
+        lblRunnerTimer1.setText("0");
 
         javax.swing.GroupLayout JpnlRunnerTimer1Layout = new javax.swing.GroupLayout(JpnlRunnerTimer1);
         JpnlRunnerTimer1.setLayout(JpnlRunnerTimer1Layout);
@@ -192,7 +208,7 @@ public class JThreadRelay extends javax.swing.JFrame {
         lblRunner2.setText("Runner 2");
 
         lblRunnerTimer2.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        lblRunnerTimer2.setText(".");
+        lblRunnerTimer2.setText("0");
 
         javax.swing.GroupLayout JpnlRunnerTimer2Layout = new javax.swing.GroupLayout(JpnlRunnerTimer2);
         JpnlRunnerTimer2.setLayout(JpnlRunnerTimer2Layout);
@@ -226,7 +242,7 @@ public class JThreadRelay extends javax.swing.JFrame {
         lblRunner3.setText("Runner 3");
 
         lblRunnerTimer3.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        lblRunnerTimer3.setText(".");
+        lblRunnerTimer3.setText("0");
 
         javax.swing.GroupLayout JpnlRunnerTimer3Layout = new javax.swing.GroupLayout(JpnlRunnerTimer3);
         JpnlRunnerTimer3.setLayout(JpnlRunnerTimer3Layout);
@@ -281,8 +297,8 @@ public class JThreadRelay extends javax.swing.JFrame {
         lblRunnerIcon4.setText(".");
         JpnlRunner4.add(lblRunnerIcon4);
         lblRunnerIcon4.setBounds(10, 40, 2, 16);
-        JpnlRunner4.add(jProgressBar1);
-        jProgressBar1.setBounds(10, 0, 450, 90);
+        JpnlRunner4.add(prgRunner4);
+        prgRunner4.setBounds(10, 0, 450, 90);
 
         getContentPane().add(JpnlRunner4);
         JpnlRunner4.setBounds(2, 302, 470, 90);
@@ -295,7 +311,7 @@ public class JThreadRelay extends javax.swing.JFrame {
         lblRunner4.setText("Runner 4");
 
         lblRunnerTimer4.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        lblRunnerTimer4.setText(".");
+        lblRunnerTimer4.setText("0");
 
         javax.swing.GroupLayout JpnlRunnerTimer4Layout = new javax.swing.GroupLayout(JpnlRunnerTimer4);
         JpnlRunnerTimer4.setLayout(JpnlRunnerTimer4Layout);
@@ -329,7 +345,59 @@ public class JThreadRelay extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbVelocitaActionPerformed
 
     private void btnAvviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvviaActionPerformed
-        // TODO add your handling code here:
+     btnAvvia.setEnabled(false);//attiva il bottone
+     cmbVelocita.setEnabled(false);//attiva la comboBox
+     boolean[] runnerPartito ={false,false,false};
+     
+     
+     // imposta la velocità dalla comboBox
+     int tempo=50;
+     if (cmbVelocita.getSelectedItem().equals("Slow")) tempo=100;
+     else if (cmbVelocita.getSelectedItem().equals("Fast")) tempo=10;
+     
+     //creazione Threads
+     Runner r1 = new Runner(tempo);
+     Runner r2 = new Runner(tempo);
+     Runner r3 = new Runner(tempo);
+     Runner r4 = new Runner(tempo);
+     
+     Thread t1 = new Thread(r1);
+     Thread t2 = new Thread(r2);
+     Thread t3 = new Thread(r3);
+     Thread t4 = new Thread(r4);
+     Timer controllo = new Timer(tempo, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+            // Richiama il metodo per far cambiare il valore delle progressBar
+            AggiornaPrgb(r1, prgRunner1, lblRunnerTimer1);
+            AggiornaPrgb(r2, prgRunner2, lblRunnerTimer2);
+            AggiornaPrgb(r3, prgRunner3, lblRunnerTimer3);
+            AggiornaPrgb(r4, prgRunner4, lblRunnerTimer4); 
+
+            // Passaggio del testimone a 90, cambia il valore sull'array di bool facendolo partire 
+            if (r1.getI() >= 90 && !runnerPartito[0]) {
+                t2.start();
+                runnerPartito[0] = true;
+            }
+            if (r2.getI() >= 90 && !runnerPartito[1]) {
+                t3.start();
+                runnerPartito[1] = true;
+            }
+            if (r3.getI() >= 90 && !runnerPartito[2]) {
+                t4.start();
+                runnerPartito[2] = true;
+            }
+
+            // alla fieìne quando l'ultimo thread finisce ferma il timer e riabilita i bottoni
+            if (r4.getI() >= 100) {
+                ((Timer)e.getSource()).stop(); // Spegne il timer
+                btnAvvia.setEnabled(true);     // Riabilita i bottoni
+                cmbVelocita.setEnabled(true);
+            }
+        }
+    });
+  controllo.start();
     }//GEN-LAST:event_btnAvviaActionPerformed
 
     private void btnSospendereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSospendereActionPerformed
@@ -394,7 +462,6 @@ public class JThreadRelay extends javax.swing.JFrame {
     private javax.swing.JButton btnRiprendi;
     private javax.swing.JButton btnSospendere;
     private javax.swing.JComboBox<String> cmbVelocita;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JLabel lblRunner1;
     private javax.swing.JLabel lblRunner2;
     private javax.swing.JLabel lblRunner3;
@@ -410,5 +477,6 @@ public class JThreadRelay extends javax.swing.JFrame {
     private javax.swing.JProgressBar prgRunner1;
     private javax.swing.JProgressBar prgRunner2;
     private javax.swing.JProgressBar prgRunner3;
+    private javax.swing.JProgressBar prgRunner4;
     // End of variables declaration//GEN-END:variables
 }
