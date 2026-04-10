@@ -26,17 +26,30 @@ public class JThreadRelay extends javax.swing.JFrame {
     }
 
     //metodi
-    private void AggiornaPrgb( Runner r, javax.swing.JProgressBar bar, javax.swing.JLabel lbl){
-       int n= r.getI();
-       bar.setValue(n);
-       
-       if (n==0){
-           lbl.setText("0");
-       } else if (n>= 100) {
-           lbl.setText("Fine");
-       } else lbl.setText(String.valueOf(n));
-        
+   private void AggiornaPrgb(Runner r, javax.swing.JProgressBar bar,
+                           javax.swing.JLabel lbl, javax.swing.JLabel lblIcon) {
+    int n = r.getI();
+    bar.setValue(n);
+
+    if (n == 0) {
+        lbl.setText("0");
+    } else if (n >= 100) {
+        lbl.setText("Fine");
+    } else {
+        lbl.setText(String.valueOf(n));
     }
+
+    // Movimento icona
+    int barX = bar.getX();
+    int barWidth = bar.getWidth();
+    int maxProgress = bar.getMaximum();
+
+    int posX = barX + (int)(((double) n / maxProgress) * (barWidth - lblIcon.getWidth()));
+    // Centra verticalmente l'icona dentro la barra
+    int posY = bar.getY() + (bar.getHeight() - lblIcon.getHeight()) / 2;
+
+    lblIcon.setLocation(posX, posY);
+}
     
     
     /**
@@ -377,10 +390,10 @@ public class JThreadRelay extends javax.swing.JFrame {
         public void actionPerformed(ActionEvent e) {
             
             // Richiama il metodo per far cambiare il valore delle progressBar
-            AggiornaPrgb(runners.get(0), prgRunner1, lblRunnerTimer1);
-            AggiornaPrgb(runners.get(1), prgRunner2, lblRunnerTimer2);
-            AggiornaPrgb(runners.get(2), prgRunner3, lblRunnerTimer3);
-            AggiornaPrgb(runners.get(3), prgRunner4, lblRunnerTimer4); 
+            AggiornaPrgb(runners.get(0), prgRunner1, lblRunnerTimer1,lblRunnerIcon1);
+            AggiornaPrgb(runners.get(1), prgRunner2, lblRunnerTimer2,lblRunnerIcon2);
+            AggiornaPrgb(runners.get(2), prgRunner3, lblRunnerTimer3,lblRunnerIcon3);
+            AggiornaPrgb(runners.get(3), prgRunner4, lblRunnerTimer4,lblRunnerIcon4); 
             
           
             // Passaggio del testimone a 90, cambia il valore sull'array di bool facendolo partire 
@@ -439,6 +452,7 @@ public class JThreadRelay extends javax.swing.JFrame {
          * resetta tutte le progress bar a zero 
          * cambia le label 
          * riabilita i bottoni
+		 *porta le icone nella posizione iniziale
          */
         for (Runner r : runners) {
             r.reset();
@@ -463,6 +477,12 @@ public class JThreadRelay extends javax.swing.JFrame {
         cmbVelocita.setEnabled(true);
         btnRiprendi.setEnabled(false);
         btnSospendere.setEnabled(false);
+		
+		// Dopo prgRunner4.setValue(0); aggiungi:
+lblRunnerIcon1.setLocation(10, (prgRunner1.getY() + (prgRunner1.getHeight() - lblRunnerIcon1.getHeight()) / 2));
+lblRunnerIcon2.setLocation(10, (prgRunner2.getY() + (prgRunner2.getHeight() - lblRunnerIcon2.getHeight()) / 2));
+lblRunnerIcon3.setLocation(10, (prgRunner3.getY() + (prgRunner3.getHeight() - lblRunnerIcon3.getHeight()) / 2));
+lblRunnerIcon4.setLocation(10, (prgRunner4.getY() + (prgRunner4.getHeight() - lblRunnerIcon4.getHeight()) / 2));
     }//GEN-LAST:event_btnFermaActionPerformed
 
     /**
