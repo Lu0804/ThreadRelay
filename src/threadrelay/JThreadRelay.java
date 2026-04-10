@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package threadrelay;
+import java.util.*;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,16 +12,21 @@ import java.awt.event.ActionListener;
  * @author lucia
  */
 public class JThreadRelay extends javax.swing.JFrame {
-
+    ArrayList<Thread> threads;
+    ArrayList<Runner> runners;
+    Timer controllo; // timer che controlla ogni a secondo della velocità i threads
     /**
      * Creates new form JThreadRelay
      */
     public JThreadRelay() {
         initComponents();
+     threads = new   ArrayList<>();
+     runners = new   ArrayList<>();
+     controllo =null;
     }
 
     //metodi
-    private void AggiornaPrgb(Runner r, javax.swing.JProgressBar bar, javax.swing.JLabel lbl){
+    private void AggiornaPrgb( Runner r, javax.swing.JProgressBar bar, javax.swing.JLabel lbl){
        int n= r.getI();
        bar.setValue(n);
        
@@ -270,9 +276,9 @@ public class JThreadRelay extends javax.swing.JFrame {
 
         JpnlRunner2.setLayout(null);
 
-        lblRunnerIcon2.setText(".");
+        lblRunnerIcon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/immagini/Runner2.png"))); // NOI18N
         JpnlRunner2.add(lblRunnerIcon2);
-        lblRunnerIcon2.setBounds(10, 30, 2, 16);
+        lblRunnerIcon2.setBounds(10, 10, 80, 70);
         JpnlRunner2.add(prgRunner2);
         prgRunner2.setBounds(10, 0, 450, 90);
 
@@ -282,9 +288,9 @@ public class JThreadRelay extends javax.swing.JFrame {
         JpnlRunner3.setPreferredSize(new java.awt.Dimension(460, 90));
         JpnlRunner3.setLayout(null);
 
-        lblRunnerIcon3.setText(".");
+        lblRunnerIcon3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/immagini/Runner.png"))); // NOI18N
         JpnlRunner3.add(lblRunnerIcon3);
-        lblRunnerIcon3.setBounds(10, 40, 2, 16);
+        lblRunnerIcon3.setBounds(10, 20, 90, 60);
         JpnlRunner3.add(prgRunner3);
         prgRunner3.setBounds(10, 0, 450, 90);
 
@@ -294,9 +300,9 @@ public class JThreadRelay extends javax.swing.JFrame {
         JpnlRunner4.setPreferredSize(new java.awt.Dimension(460, 90));
         JpnlRunner4.setLayout(null);
 
-        lblRunnerIcon4.setText(".");
+        lblRunnerIcon4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/immagini/Runner2.png"))); // NOI18N
         JpnlRunner4.add(lblRunnerIcon4);
-        lblRunnerIcon4.setBounds(10, 40, 2, 16);
+        lblRunnerIcon4.setBounds(10, 10, 80, 70);
         JpnlRunner4.add(prgRunner4);
         prgRunner4.setBounds(10, 0, 450, 90);
 
@@ -345,8 +351,10 @@ public class JThreadRelay extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbVelocitaActionPerformed
 
     private void btnAvviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvviaActionPerformed
-     btnAvvia.setEnabled(false);//attiva il bottone
-     cmbVelocita.setEnabled(false);//attiva la comboBox
+     btnAvvia.setEnabled(false);//disattiva il bottone
+     cmbVelocita.setEnabled(false);//disattiva la comboBox
+       btnSospendere.setEnabled(true);//attiva il bottone
+       btnRiprendi.setEnabled(true);//attiva il bottone
      boolean[] runnerPartito ={false,false,false};
      
      
@@ -356,44 +364,41 @@ public class JThreadRelay extends javax.swing.JFrame {
      else if (cmbVelocita.getSelectedItem().equals("Fast")) tempo=10;
      
      //creazione Threads
-     Runner r1 = new Runner(tempo);
-     Runner r2 = new Runner(tempo);
-     Runner r3 = new Runner(tempo);
-     Runner r4 = new Runner(tempo);
-     
-     Thread t1 = new Thread(r1);
-     Thread t2 = new Thread(r2);
-     Thread t3 = new Thread(r3);
-     Thread t4 = new Thread(r4);
-     
-     t1.start();
-     Timer controllo = new Timer(tempo, new java.awt.event.ActionListener() {
+     for (int i=0; i<4; i++){
+         Runner r = new Runner(tempo);
+         Thread t = new Thread(r);
+          threads.add(t);
+          runners.add(r);
+     }
+   
+     threads.get(0).start();
+      controllo = new Timer(tempo, new java.awt.event.ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             
             // Richiama il metodo per far cambiare il valore delle progressBar
-            AggiornaPrgb(r1, prgRunner1, lblRunnerTimer1);
-            AggiornaPrgb(r2, prgRunner2, lblRunnerTimer2);
-            AggiornaPrgb(r3, prgRunner3, lblRunnerTimer3);
-            AggiornaPrgb(r4, prgRunner4, lblRunnerTimer4); 
+            AggiornaPrgb(runners.get(0), prgRunner1, lblRunnerTimer1);
+            AggiornaPrgb(runners.get(1), prgRunner2, lblRunnerTimer2);
+            AggiornaPrgb(runners.get(2), prgRunner3, lblRunnerTimer3);
+            AggiornaPrgb(runners.get(3), prgRunner4, lblRunnerTimer4); 
             
           
             // Passaggio del testimone a 90, cambia il valore sull'array di bool facendolo partire 
-            if (r1.getI() >= 90 && !runnerPartito[0]) {
-                t2.start();
+            if (runners.get(0).getI() >= 90 && !runnerPartito[0]) {
+                threads.get(1).start();
                 runnerPartito[0] = true;
             }
-            if (r2.getI() >= 90 && !runnerPartito[1]) {
-                t3.start();
+            if (runners.get(1).getI() >= 90 && !runnerPartito[1]) {
+                threads.get(2).start();
                 runnerPartito[1] = true;
             }
-            if (r3.getI() >= 90 && !runnerPartito[2]) {
-                t4.start();
+            if (runners.get(2).getI() >= 90 && !runnerPartito[2]) {
+                threads.get(3).start();
                 runnerPartito[2] = true;
             }
 
-            // alla fieìne quando l'ultimo thread finisce ferma il timer e riabilita i bottoni
-            if (r4.getI() >= 100) {
+            // alla fine quando l'ultimo thread finisce ferma il timer e riabilita i bottoni
+            if (runners.get(3).getI() >= 100) {
                 ((Timer)e.getSource()).stop(); // Spegne il timer
                 btnAvvia.setEnabled(true);     // Riabilita i bottoni
                 cmbVelocita.setEnabled(true);
@@ -406,15 +411,58 @@ public class JThreadRelay extends javax.swing.JFrame {
     private void btnSospendereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSospendereActionPerformed
       btnAvvia.setEnabled(false);
       btnSospendere.setEnabled(false);
+      cmbVelocita.setEnabled(false);
+      btnRiprendi.setEnabled(true);
+      for (Runner r : runners){
+          r.pausa();
+      }
+      
+      
       
     }//GEN-LAST:event_btnSospendereActionPerformed
 
     private void btnRiprendiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiprendiActionPerformed
-        // TODO add your handling code here:
+        btnSospendere.setEnabled(true);
+         btnRiprendi.setEnabled(false);
+           for (Runner r : runners){
+          r.riprendi();
+      }
+         
     }//GEN-LAST:event_btnRiprendiActionPerformed
 
     private void btnFermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFermaActionPerformed
-        // TODO add your handling code here:
+        
+       
+        /**
+         * ferma tutti i runner 
+         * ferma il timer 
+         * resetta tutte le progress bar a zero 
+         * cambia le label 
+         * riabilita i bottoni
+         */
+        for (Runner r : runners) {
+            r.reset();
+        }
+        if (controllo != null) {
+            controllo.stop();
+        }
+        prgRunner1.setValue(0);
+        prgRunner2.setValue(0);
+        prgRunner3.setValue(0);
+        prgRunner4.setValue(0);
+
+        lblRunnerTimer1.setText("0");
+        lblRunnerTimer2.setText("0");
+        lblRunnerTimer3.setText("0");
+        lblRunnerTimer4.setText("0");
+
+        threads.clear();
+        runners.clear();
+
+        btnAvvia.setEnabled(true);
+        cmbVelocita.setEnabled(true);
+        btnRiprendi.setEnabled(false);
+        btnSospendere.setEnabled(false);
     }//GEN-LAST:event_btnFermaActionPerformed
 
     /**
