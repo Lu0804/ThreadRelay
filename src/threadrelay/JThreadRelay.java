@@ -81,9 +81,9 @@ public class JThreadRelay extends javax.swing.JFrame {
         JpnlRunner1.setPreferredSize(new java.awt.Dimension(460, 90));
         JpnlRunner1.setLayout(null);
 
-        lblRunnerIcon1.setText(".");
+        lblRunnerIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/immagini/Runner.png"))); // NOI18N
         JpnlRunner1.add(lblRunnerIcon1);
-        lblRunnerIcon1.setBounds(10, 40, 60, 16);
+        lblRunnerIcon1.setBounds(10, 20, 70, 60);
         JpnlRunner1.add(prgRunner1);
         prgRunner1.setBounds(10, 10, 450, 80);
 
@@ -365,7 +365,9 @@ public class JThreadRelay extends javax.swing.JFrame {
      Thread t2 = new Thread(r2);
      Thread t3 = new Thread(r3);
      Thread t4 = new Thread(r4);
-     Timer controllo = new Timer(tempo, new ActionListener() {
+     
+     t1.start();
+     Timer controllo = new Timer(tempo, new java.awt.event.ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             
@@ -374,7 +376,8 @@ public class JThreadRelay extends javax.swing.JFrame {
             AggiornaPrgb(r2, prgRunner2, lblRunnerTimer2);
             AggiornaPrgb(r3, prgRunner3, lblRunnerTimer3);
             AggiornaPrgb(r4, prgRunner4, lblRunnerTimer4); 
-
+            
+          
             // Passaggio del testimone a 90, cambia il valore sull'array di bool facendolo partire 
             if (r1.getI() >= 90 && !runnerPartito[0]) {
                 t2.start();
@@ -401,7 +404,9 @@ public class JThreadRelay extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAvviaActionPerformed
 
     private void btnSospendereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSospendereActionPerformed
-        // TODO add your handling code here:
+      btnAvvia.setEnabled(false);
+      btnSospendere.setEnabled(false);
+      
     }//GEN-LAST:event_btnSospendereActionPerformed
 
     private void btnRiprendiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiprendiActionPerformed

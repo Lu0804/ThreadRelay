@@ -16,7 +16,7 @@ public class Runner implements Runnable{
     private boolean inPausa;
     private boolean reset;
     private int tempo;
-    private int i;
+    private volatile int i;
 
     public Runner(int tempo) {
         this.tempo = tempo;
@@ -27,7 +27,7 @@ public class Runner implements Runnable{
 
     public void run() {
        
-
+        
         for ( this.i = 1; this.i <= 100; this.i++) {
 
             if (reset) {
