@@ -12,9 +12,9 @@ import java.awt.event.ActionListener;
  * @author lucia
  */
 public class JThreadRelay extends javax.swing.JFrame {
-    ArrayList<Thread> threads;
-    ArrayList<Runner> runners;
-    Timer controllo; // timer che controlla ogni a secondo della velocità i threads
+    ArrayList<Thread> threads;//ArrayList che memorizza i thread
+    ArrayList<Runner> runners; //ArrayList che memorizza i runners
+    Timer controllo; // timer che fa dei controlli a secondo della variabilte "tempo" 
     /**
      * Creates new form JThreadRelay
      */
@@ -26,30 +26,36 @@ public class JThreadRelay extends javax.swing.JFrame {
     }
 
     //metodi
-   private void AggiornaPrgb(Runner r, javax.swing.JProgressBar bar,
-                           javax.swing.JLabel lbl, javax.swing.JLabel lblIcon) {
-    int n = r.getI();
-    bar.setValue(n);
+    /**
+     * metodo per aggiornare le posizio i e i valori 
+     * @param r variabile di tipo Runners che serve per prendere i valori della i (dei thread)
+     * @param bar la progress bar per aumnetare il suo valore
+     * @param lbl la label che fa vedere il valore del thread
+     * @param lblIcon la label che ha l'icona del runner
+     */
+    private void AggiornaPrgb(Runner r, javax.swing.JProgressBar bar, javax.swing.JLabel lbl, javax.swing.JLabel lblIcon) {
+        int n = r.getI();
+        bar.setValue(n);
 
-    if (n == 0) {
-        lbl.setText("0");
-    } else if (n >= 100) {
-        lbl.setText("Fine");
-    } else {
-        lbl.setText(String.valueOf(n));
+        if (n == 0) {
+            lbl.setText("0");
+        } else if (n >= 100) {
+            lbl.setText("Fine");
+        } else {
+            lbl.setText(String.valueOf(n));
+        }
+
+        // Movimento icona
+        int barX = bar.getX();
+        int barWidth = bar.getWidth();
+        int maxProgress = bar.getMaximum();
+        //calcolo posizone 
+        int posX = barX + (int) (((double) n / maxProgress) * (barWidth - lblIcon.getWidth()));
+        // Centra verticalmente l'icona dentro la barra
+        int posY = bar.getY() + (bar.getHeight() - lblIcon.getHeight()) / 2;
+
+        lblIcon.setLocation(posX, posY);
     }
-
-    // Movimento icona
-    int barX = bar.getX();
-    int barWidth = bar.getWidth();
-    int maxProgress = bar.getMaximum();
-
-    int posX = barX + (int)(((double) n / maxProgress) * (barWidth - lblIcon.getWidth()));
-    // Centra verticalmente l'icona dentro la barra
-    int posY = bar.getY() + (bar.getHeight() - lblIcon.getHeight()) / 2;
-
-    lblIcon.setLocation(posX, posY);
-}
     
     
     /**
@@ -364,69 +370,73 @@ public class JThreadRelay extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbVelocitaActionPerformed
 
     private void btnAvviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvviaActionPerformed
-     btnAvvia.setEnabled(false);//disattiva il bottone
-     cmbVelocita.setEnabled(false);//disattiva la comboBox
-       btnSospendere.setEnabled(true);//attiva il bottone
-       btnRiprendi.setEnabled(true);//attiva il bottone
-     boolean[] runnerPartito ={false,false,false};
-     
-     
-     // imposta la velocità dalla comboBox
-     int tempo=50;
-     if (cmbVelocita.getSelectedItem().equals("Slow")) tempo=100;
-     else if (cmbVelocita.getSelectedItem().equals("Fast")) tempo=10;
-     
-     //creazione Threads
-     for (int i=0; i<4; i++){
-         Runner r = new Runner(tempo);
-         Thread t = new Thread(r);
-          threads.add(t);
-          runners.add(r);
-     }
-   
-     threads.get(0).start();
-      controllo = new Timer(tempo, new java.awt.event.ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            
-            // Richiama il metodo per far cambiare il valore delle progressBar
-            AggiornaPrgb(runners.get(0), prgRunner1, lblRunnerTimer1,lblRunnerIcon1);
-            AggiornaPrgb(runners.get(1), prgRunner2, lblRunnerTimer2,lblRunnerIcon2);
-            AggiornaPrgb(runners.get(2), prgRunner3, lblRunnerTimer3,lblRunnerIcon3);
-            AggiornaPrgb(runners.get(3), prgRunner4, lblRunnerTimer4,lblRunnerIcon4); 
-            
-          
-            // Passaggio del testimone a 90, cambia il valore sull'array di bool facendolo partire 
-            if (runners.get(0).getI() >= 90 && !runnerPartito[0]) {
-                threads.get(1).start();
-                runnerPartito[0] = true;
-            }
-            if (runners.get(1).getI() >= 90 && !runnerPartito[1]) {
-                threads.get(2).start();
-                runnerPartito[1] = true;
-            }
-            if (runners.get(2).getI() >= 90 && !runnerPartito[2]) {
-                threads.get(3).start();
-                runnerPartito[2] = true;
-            }
+        btnAvvia.setEnabled(false);//disattiva il bottone
+        cmbVelocita.setEnabled(false);//disattiva la comboBox
+        btnSospendere.setEnabled(true);//attiva il bottone
+        btnRiprendi.setEnabled(false);//disattiva il bottone
+        boolean[] runnerPartito = {false, false, false}; // array di boolean per l'ordine dei threads
 
-            // alla fine quando l'ultimo thread finisce ferma il timer e riabilita i bottoni
-            if (runners.get(3).getI() >= 100) {
-                ((Timer)e.getSource()).stop(); // Spegne il timer
-                btnAvvia.setEnabled(true);     // Riabilita i bottoni
-                cmbVelocita.setEnabled(true);
-            }
+        // imposta la velocità dalla comboBox
+        int tempo = 50;
+        if (cmbVelocita.getSelectedItem().equals("Slow")) {
+            tempo = 100;
+        } else if (cmbVelocita.getSelectedItem().equals("Fast")) {
+            tempo = 10;
         }
-    });
-  controllo.start();
+
+        //creazione Threads
+        for (int i = 0; i < 4; i++) {
+            Runner r = new Runner(tempo);
+            Thread t = new Thread(r);
+            threads.add(t);
+            runners.add(r);
+        }
+        //fa iniziare il primo thread
+        threads.get(0).start();
+        //timer che controlla a secondo della velocità i thread aggoirando la progress bar e le icone
+        controllo = new Timer(tempo, new java.awt.event.ActionListener() {
+            
+            //A ogni "scatto" (tempo) del Timer, Controllo genera un ActionEvent che viene catturato dall'ActionListener
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                // Richiama il metodo per far cambiare il valore delle progressBar e la posizione delle icone
+                AggiornaPrgb(runners.get(0), prgRunner1, lblRunnerTimer1, lblRunnerIcon1);
+                AggiornaPrgb(runners.get(1), prgRunner2, lblRunnerTimer2, lblRunnerIcon2);
+                AggiornaPrgb(runners.get(2), prgRunner3, lblRunnerTimer3, lblRunnerIcon3);
+                AggiornaPrgb(runners.get(3), prgRunner4, lblRunnerTimer4, lblRunnerIcon4);
+
+                // Passaggio del testimone a 90, cambia il valore sull'array di bool facendo partire il prossimo thread
+                if (runners.get(0).getI() >= 90 && !runnerPartito[0]) {
+                    threads.get(1).start();
+                    runnerPartito[0] = true;
+                }
+                if (runners.get(1).getI() >= 90 && !runnerPartito[1]) {
+                    threads.get(2).start();
+                    runnerPartito[1] = true;
+                }
+                if (runners.get(2).getI() >= 90 && !runnerPartito[2]) {
+                    threads.get(3).start();
+                    runnerPartito[2] = true;
+                }
+
+                // alla fine quando l'ultimo thread finisce ferma il timer e riabilita i bottoni
+                if (runners.get(3).getI() >= 100) {
+                    ((Timer) e.getSource()).stop(); // Spegne il timer
+                    btnAvvia.setEnabled(true);     // Riabilita i bottoni
+                    cmbVelocita.setEnabled(true);
+                }
+            }
+        });
+        controllo.start(); // avvia il timer 
     }//GEN-LAST:event_btnAvviaActionPerformed
 
     private void btnSospendereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSospendereActionPerformed
-      btnAvvia.setEnabled(false);
-      btnSospendere.setEnabled(false);
-      cmbVelocita.setEnabled(false);
-      btnRiprendi.setEnabled(true);
-      for (Runner r : runners){
+      btnAvvia.setEnabled(false);//disattiva il pulsante avvia 
+      btnSospendere.setEnabled(false);//disattiva il pulsante avvia 
+      cmbVelocita.setEnabled(false);//disattiva il pulsante avvia 
+      btnRiprendi.setEnabled(true);//attiva il pulasnte riprendere
+      for (Runner r : runners){// mette in pausa tutti i threads 
           r.pausa();
       }
       
@@ -435,54 +445,49 @@ public class JThreadRelay extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSospendereActionPerformed
 
     private void btnRiprendiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiprendiActionPerformed
-        btnSospendere.setEnabled(true);
-         btnRiprendi.setEnabled(false);
-           for (Runner r : runners){
+        btnSospendere.setEnabled(true);//attiva il bottone sospendere 
+         btnRiprendi.setEnabled(false);// disattiva il bottone riprendere 
+           for (Runner r : runners){// fa riprendere tutti i threads
           r.riprendi();
       }
          
     }//GEN-LAST:event_btnRiprendiActionPerformed
 
     private void btnFermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFermaActionPerformed
-        
        
-        /**
-         * ferma tutti i runner 
-         * ferma il timer 
-         * resetta tutte le progress bar a zero 
-         * cambia le label 
-         * riabilita i bottoni
-		 *porta le icone nella posizione iniziale
-         */
+        //ferma tutti i runner 
         for (Runner r : runners) {
             r.reset();
         }
+        //ferma il timer 
         if (controllo != null) {
             controllo.stop();
         }
+        //resetta tutte le progress bar a zero 
         prgRunner1.setValue(0);
         prgRunner2.setValue(0);
         prgRunner3.setValue(0);
         prgRunner4.setValue(0);
 
+        // cambia le label 
         lblRunnerTimer1.setText("0");
         lblRunnerTimer2.setText("0");
         lblRunnerTimer3.setText("0");
         lblRunnerTimer4.setText("0");
-
+        //ripulisce gli array 
         threads.clear();
         runners.clear();
-
+        //riabilita i bottoni
         btnAvvia.setEnabled(true);
         cmbVelocita.setEnabled(true);
         btnRiprendi.setEnabled(false);
         btnSospendere.setEnabled(false);
-		
-		// Dopo prgRunner4.setValue(0); aggiungi:
-lblRunnerIcon1.setLocation(10, (prgRunner1.getY() + (prgRunner1.getHeight() - lblRunnerIcon1.getHeight()) / 2));
-lblRunnerIcon2.setLocation(10, (prgRunner2.getY() + (prgRunner2.getHeight() - lblRunnerIcon2.getHeight()) / 2));
-lblRunnerIcon3.setLocation(10, (prgRunner3.getY() + (prgRunner3.getHeight() - lblRunnerIcon3.getHeight()) / 2));
-lblRunnerIcon4.setLocation(10, (prgRunner4.getY() + (prgRunner4.getHeight() - lblRunnerIcon4.getHeight()) / 2));
+
+        //porta le icone nella posizione iniziale
+        lblRunnerIcon1.setLocation(10, (prgRunner1.getY() + (prgRunner1.getHeight() - lblRunnerIcon1.getHeight()) / 2));
+        lblRunnerIcon2.setLocation(10, (prgRunner2.getY() + (prgRunner2.getHeight() - lblRunnerIcon2.getHeight()) / 2));
+        lblRunnerIcon3.setLocation(10, (prgRunner3.getY() + (prgRunner3.getHeight() - lblRunnerIcon3.getHeight()) / 2));
+        lblRunnerIcon4.setLocation(10, (prgRunner4.getY() + (prgRunner4.getHeight() - lblRunnerIcon4.getHeight()) / 2));
     }//GEN-LAST:event_btnFermaActionPerformed
 
     /**
